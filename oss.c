@@ -4,7 +4,19 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv){
+    /*parse options and recieve command line arguments.
+    getopt() use to pass the command line options
+    loops runs untill getopt() returns -1
+    switch statement value of options to determine options passed
+    if unknown option passed exit from the program*/
+
+    int n=0, s=0 , t=0, opt=0;
     
+    
+
+
+
+    /*
     printf("This is from oss.c\n\n");
 
     pid_t childPid = fork(); // This is where the child process splits from the parent
@@ -25,7 +37,7 @@ int main(int argc, char **argv){
         printf("Now child PID %d\n\n", childPid);
         wait(0);
     }
-
+    */
     printf("out from Parent\n");
 
     return 0;
