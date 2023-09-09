@@ -29,15 +29,16 @@ int main(int argc, char **argv){
 			break;
 		case 'n':
             n = atoi(optarg);
-			printf("This is in n value :%d \n",n);
+    
+		//  printf("This is in n value :%d \n",n);
 			break;
 		case 's':
 			s = atoi(optarg);
-			printf("This is in n value :%d \n",s);
+		//	printf("This is in n value :%d \n",s);
 			break;
         case 't':
 			t = atoi(optarg);
-			printf("This is in n value :%d \n",t);
+		//	printf("This is in n value :%d \n",t);
 			break;
 
 		default:
@@ -48,21 +49,18 @@ int main(int argc, char **argv){
 		}
     }
      
-    
-
-    
-    /*
     printf("This is from oss.c\n\n");
 
     pid_t childPid = fork(); // This is where the child process splits from the parent
 
     if(childPid == 0){
         printf("I'm the chilld\n");
-        printf("My Parent's PID is %d, and my PID is %d \n\n", getppid(), getpid());
+      //  printf("My Parent's PID is %d, and my PID is %d \n\n", getppid(), getpid());
+        printf("the value of n is %d\n", n);
+        char args[10];
+        sprintf(args,"%d",n);
 
-        char* args[] = {"./child","Hello","there","exec","is","neat"};
-
-        execlp("./child","./child",args[1],args[2],args[3],args[4],args[5],NULL);
+        execl("./worker","worker",args,NULL);
 
         fprintf(stderr, "Exec failed, terminating");
         exit(1);
@@ -72,7 +70,7 @@ int main(int argc, char **argv){
         printf("Now child PID %d\n\n", childPid);
         wait(0);
     }
-    */
+    
     printf("out from Parent\n");
 
     return 0;
