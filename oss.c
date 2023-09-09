@@ -23,7 +23,7 @@ int main(int argc, char **argv){
             printf("******* Help Menu *******\n\n");
 			printf("oss [-h] [-n proc] [-s simul] [-t iter]\n\n");
             printf("proc - number of total children to launch.\n");
-            printf("simul- how many children to reun simulataneously.\n");
+            printf("simul- how many children to run simulataneously.\n");
             printf("iter -- number of pass to the worker process\n");
             printf("\n\n");
 			break;
@@ -56,9 +56,9 @@ int main(int argc, char **argv){
     if(childPid == 0){
         printf("I'm the chilld\n");
       //  printf("My Parent's PID is %d, and my PID is %d \n\n", getppid(), getpid());
-        printf("the value of n is %d\n", n);
+        printf("the value of n is %d\n", t);
         char args[10];
-        sprintf(args,"%d",n);
+        sprintf(args,"%d",t);
 
         execl("./worker","worker",args,NULL);
 
