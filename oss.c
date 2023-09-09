@@ -12,24 +12,37 @@ int main(int argc, char **argv){
     if unknown option passed exit from the program*/
  
     int opt_val = 0;
+    int n=0;
+    int s=0;
+    int t=0;
 
-	while((opt_val = getopt(argc, argv, "n:hf:e")) != -1){
+	while((opt_val = getopt(argc, argv, "hn:s:t:")) != -1){ // getopt() function take arguments -n, -s ,-t
 		switch (opt_val){
 	
 		case 'h':
+            printf("******* Help Menu *******\n\n");
 			printf("oss [-h] [-n proc] [-s simul] [-t iter]\n\n");
             printf("proc - number of total children to launch.\n");
             printf("simul- how many children to reun simulataneously.\n");
             printf("iter -- number of pass to the worker process\n");
             printf("\n\n");
 			break;
-		case 'f':
-			printf("This is in f \n");
+		case 'n':
+            n = atoi(optarg);
+			printf("This is in n value :%d \n",n);
 			break;
-		case 'e':
-			printf("This is on e\n");
+		case 's':
+			s = atoi(optarg);
+			printf("This is in n value :%d \n",s);
 			break;
+        case 't':
+			t = atoi(optarg);
+			printf("This is in n value :%d \n",t);
+			break;
+
 		default:
+            printf("Invalid option entered\n");
+            printf("Exit from the program\n");
 			return 1;
 
 		}
