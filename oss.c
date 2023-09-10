@@ -29,25 +29,29 @@ int main(int argc, char **argv){
 			break;
 		case 'n':
             n = atoi(optarg);
-    
-		//  printf("This is in n value :%d \n",n);
 			break;
+
 		case 's':
 			s = atoi(optarg);
-		//	printf("This is in n value :%d \n",s);
 			break;
+
         case 't':
 			t = atoi(optarg);
-		//	printf("This is in n value :%d \n",t);
 			break;
 
 		default:
-            printf("Invalid option entered\n");
-            printf("Exit from the program\n");
-			return 1;
+            fprintf(stderr,"Invalid option entered\n");           
+			exit(1);
 
 		}
     }
+
+    //check for non negative arguments
+    if(n<=0 || s<=0 || t<=0){
+        fprintf(stderr,"Invalid arguments, Please enter non negative arguments\n");           
+		exit(1);
+    }
+
      
     printf("This is from oss.c\n\n");
 
