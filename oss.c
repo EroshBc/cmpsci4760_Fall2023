@@ -46,35 +46,88 @@ int main(int argc, char **argv){
 		}
     }
 
+    /*
     //check for non negative arguments
-    if(n<=0 || s<=0 || t<=0){
+    if(n <= 0 || s <= 0 || t <= 0){
         fprintf(stderr,"Invalid arguments, Please enter non negative arguments\n");           
 		exit(1);
     }
+    */
 
-     
-    printf("This is from oss.c\n\n");
+    /* go into a loop and start doing a fork() and then an exec() call to launch worker process.
+    should only do this upto simul number of times. */
+    int count =0;
 
-    pid_t childPid = fork(); // This is where the child process splits from the parent
+    /*
+            pid_t childPid = fork(); // This is where the child process splits from the parent
 
-    if(childPid == 0){
-        printf("I'm the chilld\n");
-      //  printf("My Parent's PID is %d, and my PID is %d \n\n", getppid(), getpid());
-        printf("the value of n is %d\n", t);
-        char args[10];
-        sprintf(args,"%d",t);
+            if(childPid == 0){
+              //  printf("Now at child count %d\n",count+1);
+                char args[10];
+                sprintf(args,"%d",t);
+                printf("Now calling worker %d\n\n",count+1);
+                execl("./worker","worker",args,NULL);
+              //  wait(0);
+                count ++;
+            }else if(childPid > 0){
+                printf("Now at parent count %d\n\n",count+1);
 
-        execl("./worker","worker",args,NULL);
-
-        fprintf(stderr, "Exec failed, terminating");
-        exit(1);
-    }else{
-
-        printf("I'm a parent! my PID is %d \n", getpid());
-        printf("Now child PID %d\n\n", childPid);
-        wait(0);
+                s--;
+                count ++;
+               // wait(0);
+            }else{
+                fprintf(stderr, "Exec failed, terminating");
+                exit(1);
+            }
+            
+        
+    
+        
+        //wait for one of the worker process to finish
+        int status;
+        pid_t terminated_pid = wait(&status);
+        if(terminated_pid > 0){
+            s++;
+        }
     }
     
+    while (s>0){
+        int status;
+        pid_t terminated_pid = wait(&status);
+        if(terminated_pid>0){
+            s--;
+        }
+    }
+     */
+   
+    for (int i = 0; i < n ; i++ ){
+        
+            
+            pid_t childPid = fork(); // This is where the child process splits from the parent
+
+            if(childPid == 0){
+            //  printf("I'm the chilld\n");
+            //  printf("My Parent's PID is %d, and my PID is %d \n\n", getppid(), getpid());
+                
+                char args[10];
+                sprintf(args,"%d",t);
+
+                execl("./worker","worker",args,NULL);
+                wait(0);
+                s--;
+                
+            }else if(childPid > 0){
+                printf("I'm a parent! my PID is %d \n", getpid());
+                printf("Now child PID %d\n\n", childPid);
+                wait(0);
+
+            }else{
+                fprintf(stderr, "Exec failed, terminating");
+                exit(1);
+            }
+        
+    }
+        
     printf("out from Parent\n");
 
     return 0;

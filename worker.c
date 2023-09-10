@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]){
     //take not more than one input if not error message
-
+    
     int iter =0;
     
     if (argc != 2){
@@ -14,8 +14,9 @@ int main(int argc, char *argv[]){
     }
 
     iter = atoi(argv[1]);
-
-
+    
+    
+    
     pid_t pid = getpid();
     pid_t ppid = getppid();
 
