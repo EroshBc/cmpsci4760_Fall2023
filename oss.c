@@ -56,14 +56,13 @@ int main(int argc, char **argv){
 
     /* go into a loop and start doing a fork() and then an exec() call to launch worker process.
     should only do this upto simul number of times. */
-    int count =0;
 
-    
    
     for(int i=0; i<n; i++){
-            
+        if(s > 0){
+            printf("before fork %d\n\n",i+1);
             pid_t childPid = fork(); // This is where the child process splits from the parent
-
+            
             if(childPid == 0){
 
                 char args[10];
@@ -72,19 +71,23 @@ int main(int argc, char **argv){
                 execl("./worker","worker",args,NULL);
                 
             }else if(childPid > 0){
-
-              printf("I'm the parent. waiting for child to end\n");
+              s--;      
+              printf("I'm the parent. waiting for child to end %d\n",s+1);
               wait(0);
-              printf("child is done...Parent ending\n");
-                
+              printf("**child is done...Parent ending\n\n**");
+               
                 
             }else{
                 fprintf(stderr, "Exec failed, terminating");
                 exit(1);
             }
+        }
+
+    
+
     }      
 
-    printf("out from Parent\n");
+    printf("out from Parent\n\n");
 
     return 0;
 }

@@ -21,11 +21,11 @@ int main(int argc, char *argv[]){
     pid_t ppid = getppid();
 
     for(int i=0; i<iter; i++){
-    printf("worker PID:%d PPID:%d iterations:%d before sleeping\n",pid, ppid, i+1);
+    printf("worker PID:%d PPID:%d iterations:%d before sleeping\n\n",pid, ppid, i+1);
 
     sleep(1);
 
-    printf("worker PID:%d PPID:%d iterations:%d after sleeping\n\n",pid, ppid, i+1);
+    printf("worker PID:%d PPID:%d iterations:%d after sleeping\n",pid, ppid, i+1);
     }
     
     return EXIT_SUCCESS;
