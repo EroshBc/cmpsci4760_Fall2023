@@ -102,17 +102,17 @@ int main(int argc, char **argv){
             simul_counter -= 1;
             printf("this is  s %d\n",simul_counter);
         }  
-    }  
+     
     
 
-    //wait for all remaining child process to finish
-    while(simul_counter > 0){
-        printf("\n***remaining child to finish***\n");
-        wait(0);
-        simul_counter -=1;
-        
+        //wait for all remaining child process to finish
+        while(simul_counter > 0){
+            printf("\n***remaining children to finish***\n");
+            wait(0);
+            simul_counter -=1;
+            
+        }
     }
-
 
     printf("out from Parent\n\n");
 
