@@ -46,13 +46,13 @@ int main(int argc, char **argv){
 		}
     }
 
-    /*
+    
     //check for non negative arguments
     if(n <= 0 || s <= 0 || t <= 0){
         fprintf(stderr,"Invalid arguments, Please enter non negative arguments\n");           
 		exit(1);
     }
-    */
+    
 
     /* go into a loop and start doing a fork() and then an exec() call to launch worker process.
     should only do this upto simul number of times. */
@@ -61,18 +61,20 @@ int main(int argc, char **argv){
     
    int simul_counter =0;
    
+   
     for(int tot_chldrn=0; tot_chldrn<n;){
         
         if(simul_counter < s){
-           //printf("number of sim %d\n",simul_counter+1);
-           //printf("number of children %d\n",tot_chldrn+1);
+            
+            printf("simul is %d and children %d\n\n",simul_counter+1, tot_chldrn+1);
+            
             pid_t childPid = fork(); // This is where the child process splits from the parent
             
-            if(childPid == 0){
 
+            if(childPid == 0){ //child process call worker "t" times
                 char args[2];
                 sprintf(args,"%d",t);
-
+                
                 execl("./worker","worker",args,NULL);
 
                 perror("exec failed\n");
@@ -81,12 +83,13 @@ int main(int argc, char **argv){
 
                 
             }else if(childPid > 0){
-              simul_counter += 1;
-              tot_chldrn += 1;      
-             // printf("I'm the parent. waiting for child to end \n");
-            //  printf("simul is %d and tot_child %d\n",simul_counter+1,tot_chldrn+1 );
+
               wait(0);
-              printf("**child is done...Parent ending**\n\n");
+
+              simul_counter += 1;
+              tot_chldrn += 1;
+
+              
                
                 
             }else{
@@ -95,26 +98,27 @@ int main(int argc, char **argv){
             }
 
         }else{
-            //wait for child to finish
-            printf("\n***child to finish***\n");
 
+            //wait for child to finish
+            simul_counter = 1;
+            printf("\n***child to finish***\n");
+            //printf("simul is %d and children %d\n\n",simul_counter+1, tot_chldrn+1);
             wait(0);
             simul_counter -= 1;
-            printf("this is  s %d\n",simul_counter);
+
+            
         }  
      
     
-
+    }
         //wait for all remaining child process to finish
         while(simul_counter > 0){
-            printf("\n***remaining children to finish***\n");
+            
             wait(0);
             simul_counter -=1;
             
         }
-    }
-
-    printf("out from Parent\n\n");
+    
 
     return 0;
 }
